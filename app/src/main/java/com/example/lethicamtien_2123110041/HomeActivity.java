@@ -17,14 +17,15 @@ public class HomeActivity extends AppCompatActivity {
     ListView listNganh;
 
     String tutorials[] = {
-            "CNTT",
-            "KE TOAN",
-            "THUONG MAI DIEN TU",
-            "CO KHI",
-            "O TO",
-            "THIET KE DO HOA",
-            "MANG",
-            "HOA",
+            "GHẾ SOFA",
+            "TỦ 2 NGĂN",
+            "TỦ KÍNH",
+            "TỦ MINI",
+            "BÀN ĂN",
+            "BÀN GỖ",
+            "ĐÈN NGỦ",
+            "KỆ SÁCH",
+
     };
 
     @Override
