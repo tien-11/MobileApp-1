@@ -45,13 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         arr = new ArrayAdapter<String>(this, R.layout.item_home, tutorials);
         listNganh.setAdapter(arr);
 
-        Button btnHome = findViewById(R.id.btnBack);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(it);
-            }
-        });
+
+
     }
 }

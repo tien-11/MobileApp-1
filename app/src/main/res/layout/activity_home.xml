@@ -7,47 +7,77 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        tools:context=".HomeActivity">
 
-        <!-- Dòng chữ "Xin chào" -->
+        <!-- Tiêu đề -->
         <TextView
-            android:id="@+id/tvGreeting"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xin chào"
+            android:text="Nội Thất Decor"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:padding="16dp" />
+            android:textColor="#222222"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="8dp" />
 
-        <!-- Khung tìm kiếm -->
+        <!-- Ô tìm kiếm -->
         <EditText
-            android:id="@+id/etSearch"
+            android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tìm kiếm..."
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text"
+            android:hint="Tìm sản phẩm..."
             android:drawableStart="@android:drawable/ic_menu_search"
-            android:inputType="text" />
+            android:background="@android:drawable/editbox_background"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
 
-        <!-- anh-->
         <ImageView
-            android:id="@+id/imgShop"
+            android:id="@+id/imgBanner"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/slider"
+            android:layout_height="160dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp" />
+            android:src="@drawable/slider" />
 
-        <!-- Nút trở lại -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="12dp">
+
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Home" />
+
+            <Button
+                android:id="@+id/btnCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cart" />
+
+            <Button
+                android:id="@+id/btnAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Account" />
+
+        </LinearLayout>
+
+        <!-- Danh sách sản phẩm (ListView hoặc RecyclerView) -->
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
@@ -55,12 +85,11 @@
             android:divider="@android:color/darker_gray"
             android:dividerHeight="1dp" />
 
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:layout_marginTop="24dp" />
+
+
+
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
