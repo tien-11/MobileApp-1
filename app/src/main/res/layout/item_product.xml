@@ -1,11 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:ellipsize="marquee"
-    android:singleLine="true"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:gravity="center_vertical" />
+    android:padding="8dp"
+    android:background="#F9F9F9"
+    android:layout_margin="4dp">
 
+    <ImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sofa" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên sản phẩm"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="6dp">
+
+        <Button
+            android:id="@+id/btnDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chi tiết" />
+
+        <Button
+            android:id="@+id/btnCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thêm giỏ" />
+    </LinearLayout>
+</LinearLayout>

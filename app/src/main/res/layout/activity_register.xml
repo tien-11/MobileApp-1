@@ -1,61 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgrount"
     tools:context=".RegisterActivity">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/registerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center"
-        android:background="#FFFFFF">
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtWelcome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Tên đăng nhập"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/etPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Số điện thoại"
-            android:inputType="phone"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword"
-            android:padding="10dp"
+            android:text="Good Luck!"
+            android:fontFamily="monospace"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:textColor="@color/emerald"
             android:layout_marginBottom="24dp" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Đăng ký"
-            android:padding="12dp" />
+    <!-- Username -->
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="Tên đăng nhập"
+        android:textColor="@color/gray21"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/btnBack"
+    <!-- Phone -->
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:textColor="@color/gray21"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:textColor="@color/gray21"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="24dp" />
+
+        <!-- Hai nút nằm ngang -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
-            android:padding="12dp" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="48dp"
+                android:text="Đăng ký"
+                android:textSize="16sp"
+                android:textColor="@color/gray21"
+                android:backgroundTint="@color/teal_100"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="48dp"
+                android:text="Đăng nhập"
+                android:textSize="16sp"
+                android:textColor="@color/gray21"
+                android:backgroundTint="@color/teal_100"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

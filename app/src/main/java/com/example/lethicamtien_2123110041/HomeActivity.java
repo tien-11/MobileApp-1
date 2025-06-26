@@ -1,51 +1,40 @@
 package com.example.lethicamtien_2123110041;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    ListView listNganh;
 
-    String tutorials[] = {
-            "GHẾ SOFA",
-            "TỦ 2 NGĂN",
-            "TỦ KÍNH",
-            "TỦ MINI",
-            "BÀN ĂN",
-            "BÀN GỖ",
-            "ĐÈN NGỦ",
-            "KỆ SÁCH",
-
-    };
+    RecyclerView recyclerView;
+    ProductAdapter adapter;
+    List<Product> productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        listNganh = findViewById(R.id.list);
-        ArrayAdapter<String> arr;
+        recyclerView = findViewById(R.id.recyclerView);
 
-        arr = new ArrayAdapter<String>(this, R.layout.item_home, tutorials);
-        listNganh.setAdapter(arr);
+        // Dữ liệu mẫu
+        productList = new ArrayList<>();
+        productList.add(new Product("Ghế Sofa", R.drawable.sofa));
+        productList.add(new Product("Tủ 2 Ngăn", R.drawable.tu2ngan));
+        productList.add(new Product("Bộ bàn ghế cao cấp", R.drawable.banghe));
+        productList.add(new Product("Đèn Ngủ", R.drawable.denngu));
+        productList.add(new Product("Kệ Sách", R.drawable.kesach));
+        productList.add(new Product("Bộ nệm cao cấp", R.drawable.nem));
+        // Thêm tùy ý
 
-
-
+        // Khởi tạo Adapter
+        adapter = new ProductAdapter(this, productList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -32,8 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Ánh xạ đúng cách
-        objPhone     = findViewById(R.id.editTextPhone);
-        objPass      = findViewById(R.id.editTextTextPassword);
+        objPhone     = findViewById(R.id.editTextUsername);
+        objPass      = findViewById(R.id.editTextPassword);
         btnNextPage  = findViewById(R.id.btnLogin);
         btnRegister  = findViewById(R.id.btnRegister);
 
