@@ -1,83 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF"
-    tools:context=".HomeActivity">
+    android:layout_height="match_parent">
 
-    <!-- Tiêu đề -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nội Thất Decor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#222222"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="8dp" />
-
-    <!-- Tìm kiếm -->
-    <EditText
-        android:id="@+id/edtSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tìm sản phẩm..."
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:background="@android:drawable/editbox_background"
-        android:padding="10dp"
-        android:layout_marginBottom="12dp" />
-
-    <!-- Banner -->
+    <!-- Ảnh nền -->
     <ImageView
-        android:id="@+id/imgBanner"
+        android:id="@+id/imgBackground"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/slider" />
+        android:src="@drawable/background" />
 
-    <!-- 3 nút ngang -->
+
+    <!-- Nội dung chính -->
     <LinearLayout
+        android:id="@+id/layout_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingTop="12dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/transparent"
+        tools:context=".HomeActivity">
 
-        <Button
-            android:id="@+id/btnHome"
-            android:layout_width="0dp"
+        <!-- Tiêu đề có logo ngang hàng -->
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Home" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="8dp">
 
-        <Button
-            android:id="@+id/btnCart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cart" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:text="GOTHIC GIRL"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#F24270" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnAccount"
-            android:layout_width="0dp"
+        <!-- Tìm kiếm -->
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Tìm sản phẩm..."
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:background="@android:drawable/editbox_background"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Banner -->
+        <ImageView
+            android:id="@+id/imgBanner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/slider" />
+
+        <!-- 3 nút ngang -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="12dp">
+
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Home" />
+
+            <Button
+                android:id="@+id/btnCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cart" />
+
+            <Button
+                android:id="@+id/btnAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Account" />
+        </LinearLayout>
+
+        <!-- Danh sách sản phẩm -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Account" />
+            android:paddingTop="8dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
     </LinearLayout>
-
-    <!-- Danh sách sản phẩm dạng lưới -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="8dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-</LinearLayout>
+</FrameLayout>
