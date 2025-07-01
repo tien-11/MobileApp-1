@@ -4,7 +4,13 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="emerald">#34D399</color>
-    <color name="teal_100">	#CCFBF1</color>
+    <color name="rose70_pink30_mix">#F24270</color>
+    <color name="rose50_pink50_mix">#f0447b</color>
+    <color name="rose85_pink15_mix">#E32353</color>
+    <color name="rose_300">#fda4af</color>
+    <color name="rose_200">#fecdd3</color>
+    <color name="pink_50">#fdf2f8</color>
+    <color name="teal_100">#CCFBF1</color>
     <color name="teal_200">#99F6E4</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>

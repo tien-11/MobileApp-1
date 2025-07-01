@@ -41,7 +41,7 @@
                 android:text="GOTHIC GIRL"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#F24270" />
+                android:textColor="@color/rose70_pink30_mix" />
         </LinearLayout>
 
         <!-- Tìm kiếm -->
@@ -50,10 +50,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tìm sản phẩm..."
+            android:textColor="@color/rose50_pink50_mix"
+            android:textColorHint="@color/gray21"
             android:drawableStart="@android:drawable/ic_menu_search"
             android:background="@android:drawable/editbox_background"
             android:padding="10dp"
             android:layout_marginBottom="12dp" />
+
 
         <!-- Banner -->
         <ImageView
@@ -62,7 +65,6 @@
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             android:src="@drawable/slider" />
-
         <!-- 3 nút ngang -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,27 +73,36 @@
             android:gravity="center"
             android:paddingTop="12dp">
 
+            <!-- Nút Home -->
             <Button
                 android:id="@+id/btnHome"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Home" />
+                android:layout_marginEnd="8dp"
+                android:text="Home"
+                android:textColor="@color/rose85_pink15_mix"
+                android:backgroundTint="@color/rose_300" />
 
+            <!-- Nút Cart -->
             <Button
                 android:id="@+id/btnCart"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cart" />
+                android:layout_marginEnd="8dp"
+                android:text="Cart"
+                android:textColor="@color/rose85_pink15_mix"
+                android:backgroundTint="@color/rose_300" />
 
+            <!-- Nút Account -->
             <Button
                 android:id="@+id/btnAccount"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Account" />
+                android:text="Account"
+                android:textColor="@color/rose85_pink15_mix"
+                android:backgroundTint="@color/rose_300" />
         </LinearLayout>
+
 
         <!-- Danh sách sản phẩm -->
         <androidx.recyclerview.widget.RecyclerView

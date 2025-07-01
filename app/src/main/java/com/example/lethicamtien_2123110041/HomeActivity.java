@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +25,17 @@ public class HomeActivity extends AppCompatActivity {
 
         // Dữ liệu mẫu
         productList = new ArrayList<>();
-        productList.add(new Product("Ghế Sofa", R.drawable.sofa));
-        productList.add(new Product("Tủ 2 Ngăn", R.drawable.tu2ngan));
-        productList.add(new Product("Bộ bàn ghế cao cấp", R.drawable.banghe));
-        productList.add(new Product("Đèn Ngủ", R.drawable.denngu));
-        productList.add(new Product("Kệ Sách", R.drawable.kesach));
-        productList.add(new Product("Bộ nệm cao cấp", R.drawable.nem));
+        productList.add(new Product("Rest + Black sọc caro", R.drawable.sp1));
+        productList.add(new Product("White + Black caro", R.drawable.sp2));
+        productList.add(new Product("Ivory-white + Black", R.drawable.sp3));
+        productList.add(new Product("White + Red", R.drawable.sp4));
+        productList.add(new Product("White + Black", R.drawable.sp7));
+        productList.add(new Product("White + Brown", R.drawable.sp6));
         // Thêm tùy ý
 
         // Khởi tạo Adapter
         adapter = new ProductAdapter(this, productList);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 }
