@@ -1,11 +1,13 @@
 package com.example.lethicamtien_2123110041;
 
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recyclerView);
+
+        Button btnCart = findViewById(R.id.btnCart);
+        btnCart.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
 
         // Dữ liệu mẫu
         productList = new ArrayList<>();

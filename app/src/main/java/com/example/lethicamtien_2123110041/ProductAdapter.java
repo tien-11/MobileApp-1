@@ -64,6 +64,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.btnCart.setOnClickListener(v -> {
             Toast.makeText(context, "Đã thêm " + p.getName() + " vào giỏ!", Toast.LENGTH_SHORT).show();
         });
+
+        holder.btnCart.setOnClickListener(v -> {
+            CartItem item = new CartItem(p.getName(), p.getImageResId(), p.getPrice(), 1);
+            CartManager.addToCart(item);
+            Toast.makeText(context, "Đã thêm vào giỏ!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
