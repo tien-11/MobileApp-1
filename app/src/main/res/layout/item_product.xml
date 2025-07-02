@@ -34,14 +34,13 @@
 
         <!-- Khung 3: Giá -->
         <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1.200.000đ"
+            android:text="Mô tả ngắn sản phẩm"
             android:textSize="14sp"
             android:textColor="@color/rose50_pink50_mix"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp" />
+            android:paddingTop="2dp" />
 
         <!-- Khung 4 & 5: Nút chi tiết và giỏ -->
         <LinearLayout

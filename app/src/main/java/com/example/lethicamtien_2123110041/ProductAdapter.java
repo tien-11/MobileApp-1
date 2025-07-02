@@ -25,13 +25,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduct;
-        TextView tvName;
+        TextView tvName, tvDesc;
+
         Button btnDetail, btnCart;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             tvName = itemView.findViewById(R.id.tvName);
+            tvDesc = itemView.findViewById(R.id.tvDesc);
             btnDetail = itemView.findViewById(R.id.btnDetail);
             btnCart = itemView.findViewById(R.id.btnCart);
         }
@@ -48,10 +50,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product p = productList.get(position);
         holder.imgProduct.setImageResource(p.getImageResId());
         holder.tvName.setText(p.getName());
+        holder.tvDesc.setText(p.getDesc());
 
         holder.btnDetail.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("name", p.getName());
+            intent.putExtra("description", p.getDescription());
+            intent.putExtra("price", p.getPrice());
             intent.putExtra("image", p.getImageResId());
             context.startActivity(intent);
         });
