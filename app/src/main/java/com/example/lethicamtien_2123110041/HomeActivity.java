@@ -18,6 +18,7 @@ public class HomeActivity extends AppCompatActivity {
     ProductAdapter adapter;
     List<Product> productList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, CartActivity.class);
             startActivity(intent);
         });
+
+
 
         // Dữ liệu mẫu
         productList = new ArrayList<>();
