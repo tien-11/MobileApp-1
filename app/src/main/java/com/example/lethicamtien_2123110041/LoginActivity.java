@@ -2,7 +2,6 @@ package com.example.lethicamtien_2123110041;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,12 +11,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.content.SharedPreferences;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText objPhone, objPass;
-    Button btnNextPage, btnRegister;
+    EditText objUsername, objPassword;
+    Button btnLogin, btnRegister;
+
+    private final String loginUrl = "https://fakestoreapi.com/users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,52 +40,64 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Ánh xạ đúng cách
-        objPhone     = findViewById(R.id.editTextUsername);
-        objPass      = findViewById(R.id.editTextPassword);
-        btnNextPage  = findViewById(R.id.btnLogin);
-        btnRegister  = findViewById(R.id.btnRegister);
+        objUsername = findViewById(R.id.editTextUsername); // username
+        objPassword = findViewById(R.id.editTextPassword); // password
+        btnLogin    = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
 
-        // Nhận số điện thoại sau đăng ký (nếu có)
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("phone")) {
-            String registeredPhone = intent.getStringExtra("phone");
-            objPhone.setText(registeredPhone); // Tự động điền
-        }
+        btnLogin.setOnClickListener(v -> {
+            String usernameInput = objUsername.getText().toString().trim();
+            String passwordInput = objPassword.getText().toString().trim();
 
-        btnNextPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String inputPhone = objPhone.getText().toString().trim();
-                String inputPass  = objPass.getText().toString().trim();
-
-                if (inputPhone.isEmpty() || inputPass.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                SharedPreferences pref = getSharedPreferences("UserData", MODE_PRIVATE);
-                String savedPhone = pref.getString("phone", "");
-                String savedPass  = pref.getString("password", "");
-
-                if (inputPhone.equals(savedPhone) && inputPass.equals(savedPass)) {
-                    Toast.makeText(getApplicationContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                    Intent it = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(it);
-                    finish(); // ✅ Đảm bảo không quay lại login
-                } else {
-                    Toast.makeText(getApplicationContext(), "Sai số điện thoại hoặc mật khẩu!", Toast.LENGTH_LONG).show();
-                }
+            if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+            } else {
+                loginWithApi(usernameInput, passwordInput);
             }
         });
 
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        btnRegister.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
+    }
+
+    private void loginWithApi(String usernameInput, String passwordInput) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, loginUrl,
+                response -> {
+                    try {
+                        JSONArray usersArray = new JSONArray(response);
+                        boolean found = false;
+
+                        for (int i = 0; i < usersArray.length(); i++) {
+                            JSONObject user = usersArray.getJSONObject(i);
+                            String username = user.getString("username");
+                            String password = user.getString("password");
+
+                            if (username.equals(usernameInput) && password.equals(passwordInput)) {
+                                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                finish();
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            Toast.makeText(this, "Sai tên đăng nhập hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Lỗi xử lý dữ liệu!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(this, "Không thể kết nối đến server!", Toast.LENGTH_SHORT).show();
+                });
+
+        queue.add(stringRequest);
     }
 }
