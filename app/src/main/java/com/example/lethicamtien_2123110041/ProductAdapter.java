@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
+
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private Context context;
@@ -26,7 +29,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduct;
         TextView tvName, tvDesc;
-
         Button btnDetail, btnCart;
 
         public ProductViewHolder(View itemView) {
@@ -48,25 +50,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product p = productList.get(position);
-        holder.imgProduct.setImageResource(p.getImageResId());
+
         holder.tvName.setText(p.getName());
-        holder.tvDesc.setText(p.getDesc());
+        holder.tvDesc.setText("Giá: " + p.getPrice() + " VND");
+
+        // ✅ Load ảnh từ URL
+        Glide.with(context)
+                .load(p.getImageUrl())
+                .placeholder(R.drawable.placeholder_image) // ảnh tạm
+                .into(holder.imgProduct);
 
         holder.btnDetail.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("name", p.getName());
             intent.putExtra("description", p.getDescription());
             intent.putExtra("price", p.getPrice());
-            intent.putExtra("image", p.getImageResId());
+            intent.putExtra("imageUrl", p.getImageUrl());
             context.startActivity(intent);
         });
 
         holder.btnCart.setOnClickListener(v -> {
-            Toast.makeText(context, "Đã thêm " + p.getName() + " vào giỏ!", Toast.LENGTH_SHORT).show();
-        });
-
-        holder.btnCart.setOnClickListener(v -> {
-            CartItem item = new CartItem(p.getName(), p.getImageResId(), p.getPrice(), 1);
+            CartItem item = new CartItem(p.getName(), p.getImageUrl(), p.getPrice(), 1);
             CartManager.addToCart(item);
             Toast.makeText(context, "Đã thêm vào giỏ!", Toast.LENGTH_SHORT).show();
         });

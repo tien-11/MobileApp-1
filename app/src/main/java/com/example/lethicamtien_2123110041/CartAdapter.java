@@ -12,8 +12,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lethicamtien_2123110041.R;
-import com.example.lethicamtien_2123110041.CartItem;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -57,20 +56,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(CartViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
 
+        // ✅ Load ảnh từ URL bằng Glide
+        Glide.with(context)
+                .load(item.getImageUrl())
+                .placeholder(R.drawable.placeholder_image) // ảnh tạm
+                .into(holder.imgCart);
 
-        holder.imgCart.setImageResource(item.getImageResId());
         holder.tvName.setText(item.getName());
-        holder.tvPrice.setText("" + item.getPrice());
-        holder.tvQuantity.setText(" " + item.getQuantity());
+        holder.tvPrice.setText(item.getPrice());
+        holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
 
-        // Xử lý tăng
+        // Tăng số lượng
         holder.btnIncrease.setOnClickListener(v -> {
             int qty = item.getQuantity() + 1;
             item.setQuantity(qty);
             holder.tvQuantity.setText(String.valueOf(qty));
         });
 
-        // Xử lý giảm
+        // Giảm số lượng
         holder.btnDecrease.setOnClickListener(v -> {
             int qty = item.getQuantity();
             if (qty > 1) {
@@ -79,12 +82,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 holder.tvQuantity.setText(String.valueOf(qty));
             }
         });
+
+        // Checkbox chọn mua
+        holder.checkboxSelect.setChecked(item.isSelected());
         holder.checkboxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            item.setSelected(isChecked); // thêm thuộc tính selected trong CartItem nếu muốn
+            item.setSelected(isChecked);
         });
+
+        // Nút Mua ngay
         holder.btnBuyNow.setOnClickListener(v -> {
             Toast.makeText(context, "Mua: " + item.getName(), Toast.LENGTH_SHORT).show();
-            // Hoặc chuyển sang màn hình thanh toán...
+            // Chuyển qua CheckoutActivity nếu muốn
         });
     }
 

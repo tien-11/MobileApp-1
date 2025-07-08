@@ -34,13 +34,13 @@ public class DetailActivity extends AppCompatActivity {
         if (intent != null) {
             String name = intent.getStringExtra("name");
             String description = intent.getStringExtra("description");
-            String price = intent.getStringExtra("price");
+            int price = intent.getIntExtra("price", 0);
             imageResId = intent.getIntExtra("image", R.drawable.sofa); // fallback ảnh mặc định
 
             // Gán dữ liệu
             tvProductName.setText(name);
             tvProductDesc.setText(description);// dùng dữ liệu được truyền vào
-            tvProductPrice.setText("Giá: " + price); // dùng giá được truyền vào
+            tvProductPrice.setText("Giá: " + price + " VND");
             tvRating.setText("Đánh giá: ★★★★☆");
             imgProduct.setImageResource(imageResId);
         }
