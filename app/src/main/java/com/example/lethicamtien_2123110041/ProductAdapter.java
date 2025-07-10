@@ -75,6 +75,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             Toast.makeText(context, "Đã thêm vào giỏ!", Toast.LENGTH_SHORT).show();
         });
     }
+    public void updateData(List<Product> newList) {
+        productList.clear();
+        productList.addAll(newList);
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {

@@ -12,48 +12,18 @@ public class CartItem {
         this.imageUrl = imageUrl;
         this.price = price;
         this.quantity = quantity;
-        this.selected = false; // mặc định chưa được chọn
+        this.selected = false;
     }
 
-    // Getter và Setter
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+    public String getName() {return name;}
+    public String getImageUrl() {return imageUrl;}
+    public int getPrice() {return price;}
+    public int getQuantity() {return quantity;}
+    public boolean isSelected() {return selected;}
+    public void setName(String name) {this.name = name;}
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
+    public void setPrice(int price) {this.price = price;}
+    public void setQuantity(int quantity) {this.quantity = quantity;}
+    public void setSelected(boolean selected) {this.selected = selected;}
 }
+

@@ -2,8 +2,11 @@ package com.example.lethicamtien_2123110041;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProductAdapter adapter;
     List<Product> productList;
-    Button btnCart;
+    ImageView imgCartIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,22 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recyclerView);
-        btnCart = findViewById(R.id.btnCart);
-
-        // Xử lý nút giỏ hàng
-        btnCart.setOnClickListener(v -> {
+        imgCartIcon = findViewById(R.id.imgCartIcon);
+        imgCartIcon.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, CartActivity.class);
             startActivity(intent);
         });
+        EditText edtSearch = findViewById(R.id.edtSearch);
+
+        edtSearch.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String keyword = edtSearch.getText().toString().trim();
+                performSearch(keyword); // Gọi hàm tìm kiếm
+                return true;
+            }
+            return false;
+        });
+
 
         // Khởi tạo danh sách và Adapter
         productList = new ArrayList<>();
@@ -91,4 +103,19 @@ public class HomeActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+    private void performSearch(String keyword) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product p : productList) {
+            if (p.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                filteredList.add(p);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+        }
+
+        adapter.updateData(filteredList);
+    }
+
 }

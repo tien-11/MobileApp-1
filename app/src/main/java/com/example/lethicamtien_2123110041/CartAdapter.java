@@ -63,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .into(holder.imgCart);
 
         holder.tvName.setText(item.getName());
-        holder.tvPrice.setText(item.getPrice());
+        holder.tvPrice.setText(item.getPrice() + " VND"); //ng x mất giỏ hàng
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
 
         // Tăng số lượng
