@@ -1,74 +1,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@color/rose_200"
-    android:layout_margin="4dp">
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/rose_300">
 
-    <!-- Khung 1: Ảnh sản phẩm -->
+    <!-- 1. Ảnh sản phẩm -->
     <ImageView
         android:id="@+id/imgProduct"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
         android:scaleType="centerCrop"
         android:src="@drawable/sp1"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginBottom="8dp" />
 
-    <!-- Phần bên phải: Tên, giá, nút -->
-    <LinearLayout
-        android:layout_width="0dp"
+    <!-- 2. Tên sản phẩm -->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:text="Tên sản phẩm"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/rose50_pink50_mix" />
 
-        <!-- Khung 2: Tên sản phẩm -->
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tên sản phẩm"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/rose50_pink50_mix" />
+    <!-- 3. Giá -->
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3200000 VND"
+        android:textSize="14sp"
+        android:textColor="@color/black50_pink50_mix"
+        android:paddingTop="4dp" />
 
-        <!-- Khung 3: Giá -->
-        <TextView
-            android:id="@+id/tvDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mô tả ngắn sản phẩm"
-            android:textSize="14sp"
-            android:textColor="@color/black50_pink50_mix"
-            android:paddingTop="2dp" />
+    <!-- Khung chứa 2 icon: chi tiết bên trái, thêm giỏ bên phải -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
-        <!-- Khung 4 & 5: Nút chi tiết và giỏ -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <!-- Icon Chi tiết - bên trái -->
+        <ImageView
+            android:id="@+id/imgDetailIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_detail"
+            android:contentDescription="Chi tiết"
+            android:layout_marginStart="16dp" />
 
-            <!-- Khung 4: Chi tiết -->
-            <Button
-                android:id="@+id/btnDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chi tiết"
-                android:textColor="@color/rose85_pink15_mix"
-                android:backgroundTint="@color/rose_300"/>
+        <!-- Icon Thêm giỏ - bên phải -->
+        <ImageView
+            android:id="@+id/imgAddIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_add"
+            android:contentDescription="Thêm giỏ"
+            android:layout_marginEnd="20dp" />
+    </RelativeLayout>
 
-            <!-- Khung 5: Giỏ -->
-            <Button
-                android:id="@+id/btnCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Thêm giỏ"
-                android:textColor="@color/rose85_pink15_mix"
-                android:backgroundTint="@color/rose_300"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
 </LinearLayout>

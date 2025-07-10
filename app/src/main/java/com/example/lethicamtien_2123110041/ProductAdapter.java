@@ -27,17 +27,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgProduct;
+        ImageView imgProduct, imgDetailIcon, imgAddIcon;
         TextView tvName, tvDesc;
-        Button btnDetail, btnCart;
+
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             tvName = itemView.findViewById(R.id.tvName);
             tvDesc = itemView.findViewById(R.id.tvDesc);
-            btnDetail = itemView.findViewById(R.id.btnDetail);
-            btnCart = itemView.findViewById(R.id.btnCart);
+            imgDetailIcon = itemView.findViewById(R.id.imgDetailIcon);
+            imgAddIcon = itemView.findViewById(R.id.imgAddIcon);
         }
     }
 
@@ -54,13 +54,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.tvName.setText(p.getName());
         holder.tvDesc.setText("Giá: " + p.getPrice() + " VND");
 
-        // ✅ Load ảnh từ URL
+        // ✅ Load ảnh sản phẩm
         Glide.with(context)
                 .load(p.getImageUrl())
-                .placeholder(R.drawable.placeholder_image) // ảnh tạm
+                .placeholder(R.drawable.placeholder_image)
                 .into(holder.imgProduct);
 
-        holder.btnDetail.setOnClickListener(v -> {
+        // ✅ Gán sự kiện icon chi tiết
+        holder.imgDetailIcon.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("name", p.getName());
             intent.putExtra("description", p.getDescription());
@@ -69,12 +70,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             context.startActivity(intent);
         });
 
-        holder.btnCart.setOnClickListener(v -> {
+        // ✅ Gán sự kiện icon thêm vào giỏ
+        holder.imgAddIcon.setOnClickListener(v -> {
             CartItem item = new CartItem(p.getName(), p.getImageUrl(), p.getPrice(), 1);
             CartManager.addToCart(item);
             Toast.makeText(context, "Đã thêm vào giỏ!", Toast.LENGTH_SHORT).show();
         });
     }
+
     public void updateData(List<Product> newList) {
         productList.clear();
         productList.addAll(newList);
