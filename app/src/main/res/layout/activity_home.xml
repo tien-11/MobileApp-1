@@ -65,18 +65,20 @@
             app:cardCornerRadius="16dp"
             app:cardBackgroundColor="@android:color/white">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Tìm sản phẩm..."
-                android:textColor="@color/rose50_pink50_mix"
-                android:textColorHint="@color/gray21"
                 android:drawableStart="@android:drawable/ic_menu_search"
-                android:background="@android:color/transparent"
-                android:padding="12dp"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:inputType="text"
                 android:imeOptions="actionSearch"
-                android:inputType="text" />
+                android:textColorHint="@color/rose_300"
+                android:textColor="@color/rose50_pink50_mix" />
+
+
 
         </androidx.cardview.widget.CardView>
 

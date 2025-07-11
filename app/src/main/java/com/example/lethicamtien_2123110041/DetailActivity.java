@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,8 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imgProduct;
     TextView tvProductName, tvProductDesc, tvProductPrice, tvRating;
     Button btnAddToCart, btnBuyNow;
+    String name = "", description = "", imageUrl = "";
+    int price = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,31 +31,39 @@ public class DetailActivity extends AppCompatActivity {
         btnAddToCart = findViewById(R.id.btnAddToCart);
         btnBuyNow = findViewById(R.id.btnBuyNow);
 
-        // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
-        int imageResId = R.drawable.sofa;
 
         if (intent != null) {
-            String name = intent.getStringExtra("name");
-            String description = intent.getStringExtra("description");
-            int price = intent.getIntExtra("price", 0);
-            imageResId = intent.getIntExtra("image", R.drawable.sofa); // fallback ảnh mặc định
+            name = intent.getStringExtra("name");
+            description = intent.getStringExtra("description");
+            price = intent.getIntExtra("price", 0);
+            imageUrl = intent.getStringExtra("imageUrl");
 
-            // Gán dữ liệu
             tvProductName.setText(name);
-            tvProductDesc.setText(description);// dùng dữ liệu được truyền vào
+            tvProductDesc.setText(description);
             tvProductPrice.setText("Giá: " + price + " VND");
             tvRating.setText("Đánh giá: ★★★★☆");
-            imgProduct.setImageResource(imageResId);
+
+            Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(imgProduct);
         }
 
-        // ✅ Xử lý sự kiện nút Mua Ngay
-        int finalImageResId = imageResId; // biến final để truyền vào lambda
+        btnAddToCart.setOnClickListener(v -> {
+            CartItem item = new CartItem(name, imageUrl, price, 1);
+            CartManager.addToCart(item);
+            Toast.makeText(DetailActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+        });
+
         btnBuyNow.setOnClickListener(v -> {
             Intent checkoutIntent = new Intent(DetailActivity.this, CheckoutActivity.class);
-            checkoutIntent.putExtra("product_name", tvProductName.getText().toString());
-            checkoutIntent.putExtra("product_image", finalImageResId);
+            checkoutIntent.putExtra("product_name", name);
+            checkoutIntent.putExtra("product_imageUrl", imageUrl);
             startActivity(checkoutIntent);
         });
     }
 }
+
+
+

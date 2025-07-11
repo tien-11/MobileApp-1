@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,15 +19,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context context;
     private List<CartItem> cartItems;
+    private OnCartChangedListener onCartChangedListener;
 
-    public CartAdapter(Context context, List<CartItem> cartItems) {
+    public interface OnCartChangedListener {
+        void onCartChanged();
+    }
+
+    public CartAdapter(Context context, List<CartItem> cartItems, OnCartChangedListener listener) {
         this.context = context;
         this.cartItems = cartItems;
+        this.onCartChangedListener = listener;
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkboxSelect;
-        Button btnBuyNow;
         TextView btnIncrease, btnDecrease;
         ImageView imgCart;
         TextView tvName, tvPrice, tvQuantity;
@@ -36,7 +40,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public CartViewHolder(View itemView) {
             super(itemView);
             checkboxSelect = itemView.findViewById(R.id.checkboxSelect);
-            btnBuyNow = itemView.findViewById(R.id.btnBuyNow);
             btnIncrease = itemView.findViewById(R.id.btnIncrease);
             btnDecrease = itemView.findViewById(R.id.btnDecrease);
             imgCart = itemView.findViewById(R.id.imgCart);
@@ -56,43 +59,33 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(CartViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
 
-        // ✅ Load ảnh từ URL bằng Glide
         Glide.with(context)
                 .load(item.getImageUrl())
-                .placeholder(R.drawable.placeholder_image) // ảnh tạm
+                .placeholder(R.drawable.placeholder_image)
                 .into(holder.imgCart);
 
         holder.tvName.setText(item.getName());
-        holder.tvPrice.setText(item.getPrice() + " VND"); //ng x mất giỏ hàng
+        holder.tvPrice.setText(item.getPrice() + " VND");
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
 
-        // Tăng số lượng
         holder.btnIncrease.setOnClickListener(v -> {
-            int qty = item.getQuantity() + 1;
-            item.setQuantity(qty);
-            holder.tvQuantity.setText(String.valueOf(qty));
+            item.setQuantity(item.getQuantity() + 1);
+            holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
+            if (onCartChangedListener != null) onCartChangedListener.onCartChanged();
         });
 
-        // Giảm số lượng
         holder.btnDecrease.setOnClickListener(v -> {
-            int qty = item.getQuantity();
-            if (qty > 1) {
-                qty--;
-                item.setQuantity(qty);
-                holder.tvQuantity.setText(String.valueOf(qty));
+            if (item.getQuantity() > 1) {
+                item.setQuantity(item.getQuantity() - 1);
+                holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
+                if (onCartChangedListener != null) onCartChangedListener.onCartChanged();
             }
         });
 
-        // Checkbox chọn mua
         holder.checkboxSelect.setChecked(item.isSelected());
         holder.checkboxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
             item.setSelected(isChecked);
-        });
-
-        // Nút Mua ngay
-        holder.btnBuyNow.setOnClickListener(v -> {
-            Toast.makeText(context, "Mua: " + item.getName(), Toast.LENGTH_SHORT).show();
-            // Chuyển qua CheckoutActivity nếu muốn
+            if (onCartChangedListener != null) onCartChangedListener.onCartChanged();
         });
     }
 

@@ -2,22 +2,22 @@ package com.example.lethicamtien_2123110041;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +28,11 @@ public class HomeActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ProductAdapter adapter;
-    List<Product> productList;
+    List<Product> productList;       // danh sách đang hiển thị
+    List<Product> allProducts;       // danh sách gốc để tìm kiếm
+    SuggestionAdapter suggestionAdapter;
+
+    AutoCompleteTextView edtSearch;
     ImageView imgCartIcon;
 
     @Override
@@ -37,30 +41,53 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recyclerView);
+        edtSearch = findViewById(R.id.edtSearch);
         imgCartIcon = findViewById(R.id.imgCartIcon);
+
+        productList = new ArrayList<>();
+        allProducts = new ArrayList<>();
+
+        adapter = new ProductAdapter(this, productList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
+
+        suggestionAdapter = new SuggestionAdapter(this, allProducts);
+        edtSearch.setAdapter(suggestionAdapter);
+        edtSearch.setThreshold(1); // gợi ý từ ký tự đầu tiên
+
         imgCartIcon.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, CartActivity.class);
             startActivity(intent);
         });
-        EditText edtSearch = findViewById(R.id.edtSearch);
 
-        edtSearch.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+        edtSearch.setOnItemClickListener((parent, view, position, id) -> {
+            Product selectedProduct = suggestionAdapter.getItem(position);
+            if (selectedProduct != null) {
+                List<Product> selectedList = new ArrayList<>();
+                selectedList.add(selectedProduct);
+                adapter.updateData(selectedList);
+            }
+        });
+
+        edtSearch.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 String keyword = edtSearch.getText().toString().trim();
-                performSearch(keyword); // Gọi hàm tìm kiếm
+                performSearch(keyword);
                 return true;
             }
             return false;
         });
 
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) {
+                    adapter.updateData(allProducts); // reset về ban đầu
+                }
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
 
-        // Khởi tạo danh sách và Adapter
-        productList = new ArrayList<>();
-        adapter = new ProductAdapter(this, productList);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setAdapter(adapter);
-
-        // Gọi API
         getProductsFromApi();
     }
 
@@ -74,7 +101,8 @@ public class HomeActivity extends AppCompatActivity {
                 null,
                 response -> {
                     try {
-                        productList.clear(); // xóa cũ nếu có
+                        productList.clear();
+                        allProducts.clear();
 
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = response.getJSONObject(i);
@@ -85,10 +113,13 @@ public class HomeActivity extends AppCompatActivity {
                             String description = obj.optString("description");
                             String imageUrl = obj.optString("imageUrl");
 
-                            productList.add(new Product(name, desc, price, description, imageUrl));
+                            Product product = new Product(name, desc, price, description, imageUrl);
+                            productList.add(product);
+                            allProducts.add(product);
                         }
 
                         adapter.notifyDataSetChanged();
+                        suggestionAdapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -103,9 +134,10 @@ public class HomeActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+
     private void performSearch(String keyword) {
         List<Product> filteredList = new ArrayList<>();
-        for (Product p : productList) {
+        for (Product p : allProducts) {
             if (p.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 filteredList.add(p);
             }
@@ -117,5 +149,4 @@ public class HomeActivity extends AppCompatActivity {
 
         adapter.updateData(filteredList);
     }
-
 }
