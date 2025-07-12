@@ -1,9 +1,11 @@
 package com.example.lethicamtien_2123110041;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String name;
     private String desc;
-    private int price;  // 👈 Giữ là int
+    private int price;
     private String description;
     private String imageUrl;
 
@@ -17,7 +19,7 @@ public class Product {
 
     public String getName() { return name; }
     public String getDesc() { return desc; }
-    public int getPrice() { return price; } // 👈 Trả về int
+    public int getPrice() { return price; }
     public String getDescription() { return description; }
     public String getImageUrl() { return imageUrl; }
 }

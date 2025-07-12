@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,14 +40,24 @@ public class CartActivity extends AppCompatActivity {
 
         // Nút "Mua ngay"
         btnCheckout.setOnClickListener(v -> {
-            int selectedCount = getSelectedCount();
-            if (selectedCount > 0) {
-                Toast.makeText(this, "Đặt mua " + selectedCount + " sản phẩm", Toast.LENGTH_SHORT).show();
-                // TODO: Xử lý đặt hàng
+            ArrayList<CartItem> selectedItems = new ArrayList<>();
+            for (CartItem item : CartManager.getCart()) {
+                if (item.isSelected()) {
+                    selectedItems.add(item);
+                }
+            }
+
+            if (selectedItems.size() > 0) {
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                intent.putExtra("cart_items", selectedItems); // 👉 DÒNG NÀY Ở ĐÂY
+                startActivity(intent);
             } else {
                 Toast.makeText(this, "Vui lòng chọn sản phẩm để mua!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
 
     private void updateTotalPrice() {

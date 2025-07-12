@@ -58,10 +58,10 @@ public class DetailActivity extends AppCompatActivity {
 
         btnBuyNow.setOnClickListener(v -> {
             Intent checkoutIntent = new Intent(DetailActivity.this, CheckoutActivity.class);
-            checkoutIntent.putExtra("product_name", name);
-            checkoutIntent.putExtra("product_imageUrl", imageUrl);
+            checkoutIntent.putExtra("product", new Product(name, "", price, description, imageUrl));
             startActivity(checkoutIntent);
         });
+
     }
 }
 
